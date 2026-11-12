@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePreview } from './PreviewProvider';
 import { formatTimestamp } from '../lib/presentation';
+import { assetPath } from '../lib/assetPath';
 
 export default function HomePage() {
   const { locationsResponse } = usePreview();
@@ -18,7 +19,7 @@ export default function HomePage() {
       <p>For food safety managers reviewing Sweetgreen’s NYC locations and documenting follow-ups linked to their source.</p>
       <Link href="/locations" className="primary-button">Open locations</Link>
     </section>
-    <Image className="home-photo" src="/restaurant-review.png" width={2172} height={724} priority alt="Illustrative generated scene of two restaurant colleagues reviewing a tablet." />
+    <Image className="home-photo" src={assetPath('/restaurant-review.png')} width={2172} height={724} priority alt="Illustrative generated scene of two restaurant colleagues reviewing a tablet." />
     <section className="home-coverage" aria-label="Data coverage">
       <div>{sample ? <p>Fictional sample records for exploring the workflow.</p> : <><p><strong>{importStatus.verifiedCount}</strong> {importStatus.verifiedCount === 1 ? 'location' : 'locations'} matched to city permits.</p><p><strong>{pending}</strong> {pending === 1 ? 'location' : 'locations'} awaiting permit confirmation.</p></>}
         <p className="quiet">Last city import: {sample ? 'Not connected in sample mode' : importedAt || 'No successful import yet'}</p>

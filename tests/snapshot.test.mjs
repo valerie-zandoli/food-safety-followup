@@ -4,6 +4,7 @@ import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createApiClient } from '../lib/api.js';
+import { assetPath } from '../lib/assetPath.js';
 import { restoreConfirmedMatches } from '../lib/server/matches.js';
 import { directoryFromPermits } from '../lib/server/permits.js';
 import { syncDirectory } from '../lib/server/importer.js';
@@ -112,4 +113,16 @@ test('the snapshot build is a static export under the base path and leaves the n
   const normal = await load(false, 'normal-config');
   assert.equal(normal.output, undefined);
   assert.equal(typeof normal.headers, 'function');
+});
+
+test('an asset address gets the base path in a snapshot under a GitHub Pages folder, and stays unchanged everywhere else', () => {
+  const previous = process.env.NEXT_PUBLIC_BASE_PATH;
+  try {
+    delete process.env.NEXT_PUBLIC_BASE_PATH;
+    assert.equal(assetPath('/restaurant-review.png'), '/restaurant-review.png');
+    process.env.NEXT_PUBLIC_BASE_PATH = '/food-safety-followup';
+    assert.equal(assetPath('/restaurant-review.png'), '/food-safety-followup/restaurant-review.png');
+  } finally {
+    if (previous === undefined) delete process.env.NEXT_PUBLIC_BASE_PATH; else process.env.NEXT_PUBLIC_BASE_PATH = previous;
+  }
 });
