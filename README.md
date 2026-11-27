@@ -14,7 +14,7 @@ Food Safety Follow-Up is a course prototype for a food safety manager overseeing
 
 ![One restaurant in the live demo: a public inspection citation with a Create follow-up button, beside the follow-ups panel and a fictional demo check](docs/media/app-screenshot.png)
 
-*The live demo, showing public NYC records as of 23 November 2026. The internal check in the picture is fictional.*
+*A picture of the live demo, taken when it showed public NYC records as of 23 November 2026. The internal check in the picture is fictional.*
 
 The homepage explains the workflow and shows permit-match coverage and the last successful city import. Choose **Open locations** to reach the map and matching location list at `/locations`. The manager opens a restaurant's inspection history grouped by year, reviews citations and repeated violation codes, compares supporting records, and records an action with an owner, due date, and notes. Completing a follow-up requires an explicit manager decision and a completion note; city inspection data alone cannot confirm that a correction occurred.
 
