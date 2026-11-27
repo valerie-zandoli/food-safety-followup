@@ -30,6 +30,17 @@ The homepage explains the workflow and shows permit-match coverage and the last 
 
 The project is based on the [sweetgreen Senior Food Safety Manager job description](https://careers.sweetgreen.com/jobs/8191701?gh_jid=8191701) (when checked on 27 November 2026, this link opened the careers home page instead, so the posting may have closed), which includes reviewing sanitation violations and driving documented corrective action in the NYC Region. This independent course project is not affiliated with sweetgreen and has no access to its internal systems or records. The scope and requirements are in [PRD.md](PRD.md); the app's data limits are described below.
 
+## Tech stack
+
+- **Web app:** Next.js 16.4.5 and React 19.2.0, with Next.js Route Handlers for the backend API.
+- **Map:** Leaflet 1.9.4 with OpenStreetMap map tiles.
+- **Data:** the NYC Open Data public API for restaurant inspection records.
+- **Storage:** a JSON file store on the server, with backups.
+- **Runtime and tests:** Node.js 20.10 or newer and its built-in test runner.
+- **Automation and hosting:** GitHub Actions for automatic checks and the weekly demo rebuild, and GitHub Pages for the read-only demo.
+
+The app does not call an AI service.
+
 ## Run the app
 
 Use Node.js 20.10 or newer. Run `npm install`, then `npm run dev`, and open `http://localhost:3000`. Run `npm test` and `npm run build` for the current checks.
