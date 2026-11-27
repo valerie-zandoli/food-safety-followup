@@ -12,6 +12,10 @@ Built as a course project by [Dennys Antunish](https://github.com/antunishdPursu
 
 Food Safety Follow-Up is a course prototype for a food safety manager overseeing sweetgreen restaurants in New York City. It brings public restaurant-inspection findings and manager-entered follow-ups into one review workflow, helping the manager identify citations that need attention and keep corrective actions connected to their source records.
 
+![One restaurant in the live demo: a public inspection citation with a Create follow-up button, beside the follow-ups panel and a fictional demo check](docs/media/app-screenshot.png)
+
+*The live demo, showing public NYC records as of 23 November 2026. The internal check in the picture is fictional.*
+
 The homepage explains the workflow and shows permit-match coverage and the last successful city import. Choose **Open locations** to reach the map and matching location list at `/locations`. The manager opens a restaurant's inspection history grouped by year, reviews citations and repeated violation codes, compares supporting records, and records an action with an owner, due date, and notes. Completing a follow-up requires an explicit manager decision and a completion note; city inspection data alone cannot confirm that a correction occurred.
 
 The project is based on the [sweetgreen Senior Food Safety Manager job description](https://careers.sweetgreen.com/jobs/8191701?gh_jid=8191701), which includes reviewing sanitation violations and driving documented corrective action in the NYC Region. This independent course project is not affiliated with sweetgreen and has no access to its internal systems or records. The scope and requirements are in [PRD.md](PRD.md); the app's data limits are described below.
