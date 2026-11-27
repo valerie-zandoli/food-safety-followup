@@ -1,6 +1,6 @@
 # Food Safety Follow-Up
 
-New York City publishes restaurant inspection citations, but that data cannot confirm that anyone fixed the problem. A food safety manager faces this gap: sweetgreen's Senior Food Safety Manager job description includes reviewing sanitation violations and driving documented corrective action in the NYC Region (this independent course project is not affiliated with sweetgreen). This prototype is built to test whether putting each citation beside its follow-up helps a food safety manager catch repeat violations and unfinished fixes.
+New York City publishes restaurant inspection citations, but those data cannot confirm that anyone fixed the problem. A food safety manager faces this gap: sweetgreen's Senior Food Safety Manager job description includes reviewing sanitation violations and driving documented corrective action in the NYC Region (this independent course project is not affiliated with sweetgreen). Food Safety Follow-Up puts each citation beside its follow-up, so that manager can see repeat violations and unfinished follow-ups for each restaurant.
 
 Built as a course project by [Dennys Antunish](https://github.com/antunishdPursuit) and [Valerie Zandoli](https://github.com/valerie-zandoli).
 
@@ -9,6 +9,16 @@ Built as a course project by [Dennys Antunish](https://github.com/antunishdPursu
 [Watch the showcase film on YouTube](https://youtu.be/6t9ewV_8y48)
 
 **Showcase film (1:31)**: a filth-flies violation cited twice in 15 days at one restaurant, followed from the public NYC inspection record to the manager's completed follow-up. Inspection records are from NYC Open Data; follow-up entries are illustrative. [Download the film](docs/media/food-safety-follow-up-showcase.mp4).
+
+## What it does
+
+- **Find a restaurant:** Locate it on a map or list and open its inspection history by year.
+- **Spot repeat violations:** See when the same violation code appears on different inspection dates, and compare those citations.
+- **Assign the fix:** Create a follow-up for a citation, with an owner, due date and notes.
+- **Catch late work:** See which open follow-ups are overdue.
+- **Close with a record:** Completing a follow-up requires a note. City data alone never marks a problem fixed.
+
+This is a prototype. Whether it helps managers catch more repeat violations or unfinished follow-ups has not been measured.
 
 Food Safety Follow-Up is a course prototype for a food safety manager overseeing sweetgreen restaurants in New York City. It brings public restaurant-inspection findings and manager-entered follow-ups into one review workflow, helping the manager identify citations that need attention and keep corrective actions connected to their source records.
 
