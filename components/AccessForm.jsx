@@ -45,7 +45,7 @@ export default function AccessForm() {
       <label htmlFor="access-code">Access code</label>
       <input id="access-code" type="password" autoComplete="off" value={code} onChange={(event) => setCode(event.target.value)} aria-invalid={!!error} aria-describedby={error ? 'access-error' : undefined} />
       {error && <small id="access-error" className="error" role="alert">{error}</small>}
-      <p className="form-disclaimer">The code is shared, not personal. Stay signed in for seven days, or sign out from the top of any page.</p>
+      <p className="form-disclaimer">The code is shared, not personal. You stay signed in for up to seven days, or until the server restarts. You can also sign out from the top of any page.</p>
       <div className="form-actions"><button className="primary-button" type="submit" disabled={busy || !code}>{busy ? 'Checking…' : 'Unlock'}</button><Link className="text-button" href="/locations">Cancel</Link></div>
     </form>
   </section>;
