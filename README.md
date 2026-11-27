@@ -1,6 +1,6 @@
 # Food Safety Follow-Up
 
-New York City publishes restaurant inspection citations, but that data cannot confirm that anyone fixed the problem. This prototype is built to test whether putting each citation beside its follow-up helps a food safety manager catch repeat violations and unfinished fixes.
+New York City publishes restaurant inspection citations, but that data cannot confirm that anyone fixed the problem. A food safety manager faces this gap: sweetgreen's Senior Food Safety Manager job description includes reviewing sanitation violations and driving documented corrective action in the NYC Region (this independent course project is not affiliated with sweetgreen). This prototype is built to test whether putting each citation beside its follow-up helps a food safety manager catch repeat violations and unfinished fixes.
 
 Built as a course project by [Dennys Antunish](https://github.com/antunishdPursuit) and [Valerie Zandoli](https://github.com/valerie-zandoli).
 
@@ -18,7 +18,7 @@ Food Safety Follow-Up is a course prototype for a food safety manager overseeing
 
 The homepage explains the workflow and shows permit-match coverage and the last successful city import. Choose **Open locations** to reach the map and matching location list at `/locations`. The manager opens a restaurant's inspection history grouped by year, reviews citations and repeated violation codes, compares supporting records, and records an action with an owner, due date, and notes. Completing a follow-up requires an explicit manager decision and a completion note; city inspection data alone cannot confirm that a correction occurred.
 
-The project is based on the [sweetgreen Senior Food Safety Manager job description](https://careers.sweetgreen.com/jobs/8191701?gh_jid=8191701), which includes reviewing sanitation violations and driving documented corrective action in the NYC Region. This independent course project is not affiliated with sweetgreen and has no access to its internal systems or records. The scope and requirements are in [PRD.md](PRD.md); the app's data limits are described below.
+The project is based on the [sweetgreen Senior Food Safety Manager job description](https://careers.sweetgreen.com/jobs/8191701?gh_jid=8191701) (when checked on 27 November 2026, this link opened the careers home page instead, so the posting may have closed), which includes reviewing sanitation violations and driving documented corrective action in the NYC Region. This independent course project is not affiliated with sweetgreen and has no access to its internal systems or records. The scope and requirements are in [PRD.md](PRD.md); the app's data limits are described below.
 
 ## Run the app
 
