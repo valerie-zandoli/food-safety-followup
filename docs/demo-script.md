@@ -39,7 +39,7 @@ The narration is about 265 words, roughly 105 seconds at a relaxed 150 words a m
 
 ## Contributor snapshot figures (2026-11-09)
 
-- 38 of 38 locations verified (29 matched automatically, 9 confirmed by the manager), all 38 with a map pin. Penn Plaza's pin comes from Sweetgreen's own page, because the city record has no coordinates; the screens can show that source (`coordinatesSource`).
+- 38 of 38 locations verified (29 matched automatically, 9 confirmed by the manager), all 38 with a map pin. On that date, Penn Plaza's pin came from Sweetgreen's own page, because the city record has no coordinates (since 12 November it comes from the NYC Planning Labs geocoder); the screens can show that source (`coordinatesSource`).
 - 118 inspections and 271 citations across all 38 locations, from 2022-10-18 to 2026-10-23. Of the citations, 112 are critical (41 percent).
 - Chambers St: 125 Chambers St, permit 50091763, 4 inspections, 16 citations, 20 flags (16 needs review, 4 repeat). The repeat codes are 04N and 08A (14 and 29 July 2026), 02B (2024 and 2026), and 10F (2024 and 2025).
 - Code 04N appears at 13 locations. Code 10F appears at 35 of the 38.
@@ -100,7 +100,7 @@ curl -s -X PATCH localhost:3000/api/follow-ups/FOLLOW-UP-ID -H 'content-type: ap
 ## Questions and answers
 
 - **Is this real data?** The inspections are real NYC Open Data records. The internal checks are fictional and labeled. There is no sweetgreen internal data.
-- **How do you know a location matches its permit?** Street address and business name must both agree. Anything weaker is a candidate, and a person confirms it. Each automatic match sits within 116 meters of the location's own published map position.
+- **How do you know a location matches its permit?** Street address and business name must both agree. Anything weaker is a candidate, and a person confirms it. On 9 November, each automatic match sat within 116 meters of the map position then published on Sweetgreen's pages, which are no longer read.
 - **What if the city service is down?** It was, for stretches on 2026-11-09. A failed refresh keeps the stored records, and follow-ups stay available.
 - **Why not close findings automatically?** City data cannot show that a correction happened. The manager records completion with a note; the app stores that statement rather than independently verifying the correction.
 - **What is next?** Test with a real food safety manager against a measured baseline, then add durable storage and protected sign-in before any public use.
