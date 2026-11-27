@@ -32,9 +32,9 @@ The frontend includes a homepage, location list/map, location detail, record com
 
 ## Backend API
 
-The backend is a set of Next.js Route Handlers in `app/api` over a small server library in `lib/server`. It builds the NYC Sweetgreen list from the public locations page, verifies each location's NYC Open Data CAMIS permit by address, imports public inspection records, applies the flag rules, and saves manager follow-ups. The screens call these endpoints for records and saved actions. Their response shapes extend the sample contract in `data/preview.json`.
+The backend is a set of Next.js Route Handlers in `app/api` over a small server library in `lib/server`. It builds the NYC Sweetgreen list from the saved NYC Open Data permit list and the confirmed matches, can match a location's CAMIS permit by address, imports public inspection records, applies the flag rules, and saves manager follow-ups. The screens call these endpoints for records and saved actions. Their response shapes extend the sample contract in `data/preview.json`.
 
-![Architecture: public pages and city data are matched and imported by the backend; the manager confirms uncertain matches, judges findings, and closes follow-ups](docs/architecture.svg)
+![Architecture: city data is matched and imported by the backend; the manager confirms uncertain matches, judges findings, and closes follow-ups](docs/architecture.svg)
 
 The diagram shows how the screens read inspection records and save manager follow-ups through the API.
 
