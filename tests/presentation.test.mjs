@@ -44,3 +44,16 @@ test('missing inspections stay distinct from zero citations and fictional fixtur
   assert.equal(locationCitationLabel({ citationCount: null, matchStatus: 'verified', dataState: 'no-records' }), 'No inspection records');
   assert.equal(locationCitationLabel({ citationCount: null, isSample: true }), 'No sample inspections');
 });
+
+test('a refused change is shown as a problem, never in the style of a successful save', async () => {
+  const { noticeStyle } = await import('../lib/presentation.js');
+  assert.deepEqual(noticeStyle(true), { className: 'problem-message', role: 'alert' });
+  assert.deepEqual(noticeStyle(false), { className: 'save-message', role: 'status' });
+  const { readFile } = await import('node:fs/promises');
+  const read = (name) => readFile(new URL(`../${name}`, import.meta.url), 'utf8');
+  assert.match(await read('app/globals.css'), /\.problem-message\{[^}]*var\(--danger-bg\)[^}]*var\(--danger\)/);
+  assert.match(await read('components/AppShell.jsx'), /noticeStyle\(noticeProblem\)/);
+  const provider = await read('components/PreviewProvider.jsx');
+  assert.match(provider, /setNotice\(error\.message, true\)/);
+  assert.match(provider, /setNotice\(Object\.values\(result\.errors\)\[0\], true\)/);
+});

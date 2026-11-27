@@ -107,3 +107,4 @@ html{scroll-behavior:auto}
 .access-control{display:inline-flex;align-items:center;gap:.35rem;margin-left:auto;font-size:.875rem;color:var(--muted)}
 .access-control a,.access-control .text-button{font-weight:700}
 .access-form{max-width:480px;padding:2rem 0}
+.problem-message{background:var(--danger-bg);color:var(--danger);border-radius:6px;padding:.75rem}

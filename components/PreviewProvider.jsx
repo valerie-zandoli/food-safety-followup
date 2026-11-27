@@ -13,7 +13,8 @@ export function PreviewProvider({ children }) {
   const [detailResponses, setDetails] = useState({});
   const [resourceError, setResourceError] = useState(null);
   const [revision, setRevision] = useState(0);
-  const [notice, setNotice] = useState('');
+  const [shown, setShown] = useState({ text: '', problem: false });
+  const setNotice = (text, problem = false) => setShown({ text, problem });
   const [saving, setSaving] = useState(false);
   const writePending = useRef(false);
   const readVersion = useRef(0);
@@ -54,7 +55,7 @@ export function PreviewProvider({ children }) {
     } catch (error) {
       // The record changed elsewhere: say so where it stays visible, and load the latest.
       if (error.status === 409) {
-        setNotice(error.message);
+        setNotice(error.message, true);
         await refresh(locationId).catch(() => {});
       }
       return { errors: Object.keys(error.fields || {}).length ? error.fields : { form: error.message || 'The save could not be completed. Please try again.' } };
@@ -80,14 +81,14 @@ export function PreviewProvider({ children }) {
     const result = await write(id, () => api.setCheckLink(checkId, decision, citationId), (previous, record) => ({
       ...previous, [id]: { ...previous[id], internalChecks: previous[id].internalChecks.map((check) => check.id === checkId ? record : check) },
     }), decision === 'linked' ? 'Records linked.' : 'Suggestion dismissed.');
-    if (result.errors) setNotice(Object.values(result.errors)[0]);
+    if (result.errors) setNotice(Object.values(result.errors)[0], true);
     return result;
   }
 
   const actionsByLocation = Object.fromEntries(Object.entries(detailResponses).map(([key, detail]) => [key, detail.followUps]));
   const suggestions = Object.fromEntries(Object.values(detailResponses).flatMap((detail) => detail.internalChecks.filter((check) => check.link).map((check) => [check.id, check.link])));
   return <PreviewContext.Provider value={{
-    locationsResponse, detailResponses, actionsByLocation, suggestions, notice, saving,
+    locationsResponse, detailResponses, actionsByLocation, suggestions, notice: shown.text, noticeProblem: shown.problem, saving,
     loading: !locationsResponse || Boolean(id && !detailResponses[id]),
     error: resourceError?.id === id ? resourceError : null,
     reload: () => { setResourceError(null); setRevision((value) => value + 1); },
