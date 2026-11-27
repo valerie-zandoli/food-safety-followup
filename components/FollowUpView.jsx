@@ -22,6 +22,8 @@ export default function FollowUpView({ mode }) {
   const citation = detail && citationsFor(detail).find((item) => item.id === citationId);
   const check = detail?.internalChecks.find((item) => item.id === checkId);
   const [form, setForm] = useState(() => ({ owner: existing?.owner || '', dueDate: existing?.dueDate || '', notes: existing?.notes || '', status: existing?.status || 'Open' }));
+  // The version this form was filled from. It stays the same if newer data arrives while the form is open.
+  const [loadedVersion] = useState(() => existing?.updatedAt);
   const [errors, setErrors] = useState({});
   const [showComplete, setShowComplete] = useState(false);
   const completeButton = useRef(null);
@@ -33,7 +35,7 @@ export default function FollowUpView({ mode }) {
 
   async function submit(event) {
     event.preventDefault();
-    const input = { ...form, locationId: id, citationId: citation?.id || null, checkId: check?.id || null, completionNote: '' };
+    const input = { ...form, locationId: id, citationId: citation?.id || null, checkId: check?.id || null, completionNote: '', expectedUpdatedAt: loadedVersion };
     const validation = validateFollowUp(input);
     setErrors(validation);
     if (Object.keys(validation).length) return;
@@ -43,7 +45,7 @@ export default function FollowUpView({ mode }) {
   }
 
   async function finish(note) {
-    const result = await completeFollowUp(id, existing.id, note);
+    const result = await completeFollowUp(id, existing.id, note, loadedVersion);
     if (result.error) return result.error;
     setShowComplete(false);
     router.push(`/locations/${id}`);

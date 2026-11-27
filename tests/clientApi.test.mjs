@@ -58,3 +58,10 @@ test('client preserves abort, network and unreadable response failures rather th
   await assert.rejects(createApiClient(() => new Response('<html>error</html>')).locations(), /unreadable response/);
   await assert.rejects(createApiClient(() => new Response('failure', { status: 503 })).locations(), (error) => error.status === 503);
 });
+
+test('an edit from the app carries the version the screen loaded', async () => {
+  let sent;
+  const client = createApiClient((url, options) => { sent = JSON.parse(options.body); return new Response('{"id":"fu-1"}', { status: 200 }); });
+  await client.saveFollowUp({ owner: 'A', dueDate: '2026-12-01', notes: 'N', status: 'Open', completionNote: '', expectedUpdatedAt: '2026-11-27T10:00:00.000Z' }, 'fu-1');
+  assert.equal(sent.expectedUpdatedAt, '2026-11-27T10:00:00.000Z');
+});

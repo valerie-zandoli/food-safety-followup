@@ -114,8 +114,8 @@ test('Complete needs a completion note; without one nothing changes', async () =
 test('reopening a completed follow-up clears the completion but keeps the history', async () => {
   const { create, update } = await routes();
   const { body: made } = await create(valid);
-  await update(made.id, { status: 'Complete', completionNote: 'Verified on site.' });
-  const reopened = await update(made.id, { status: 'Open' });
+  const done = await update(made.id, { status: 'Complete', completionNote: 'Verified on site.' });
+  const reopened = await update(made.id, { status: 'Open', expectedUpdatedAt: done.body.updatedAt });
   assert.deepEqual([reopened.body.status, reopened.body.completionNote, reopened.body.completedAt], ['Open', '', null]);
   assert.deepEqual(reopened.body.history.map((entry) => entry.status), ['Open', 'Complete', 'Open']);
 });
@@ -217,4 +217,31 @@ test('simultaneous requests all save with distinct ids', async () => {
   assert.ok(results.every((result) => result.status === 201));
   assert.equal(new Set(results.map((result) => result.body.id)).size, 12);
   assert.equal((await detail()).followUps.length, 13);
+});
+
+const tick = () => new Promise((resolve) => setTimeout(resolve, 5)); // so the next save gets a later time
+
+test('a save from an out-of-date screen is refused, so it cannot undo a completion', async () => {
+  const { create, update, detail } = await routes();
+  const { body: made } = await create(valid);
+  const oldScreen = { owner: made.owner, dueDate: made.dueDate, notes: made.notes, status: 'Open', completionNote: '' };
+  await tick();
+  assert.equal((await update(made.id, { status: 'Complete', completionNote: 'Visit done.', expectedUpdatedAt: made.updatedAt })).status, 200);
+  for (const patch of [{ ...oldScreen, expectedUpdatedAt: made.updatedAt }, oldScreen]) {
+    const refused = await update(made.id, patch);
+    assert.equal(refused.status, 409);
+    assert.equal(refused.body.error.code, 'follow_up_changed');
+  }
+  const saved = (await detail()).followUps.find((item) => item.id === made.id);
+  assert.deepEqual([saved.status, saved.completionNote], ['Complete', 'Visit done.']);
+});
+
+test('an out-of-date edit of an open follow-up does not overwrite a newer one', async () => {
+  const { create, update, detail } = await routes();
+  const { body: made } = await create(valid);
+  await tick();
+  assert.equal((await update(made.id, { owner: 'Newer owner', expectedUpdatedAt: made.updatedAt })).status, 200);
+  assert.equal((await update(made.id, { notes: 'Older screen.', expectedUpdatedAt: made.updatedAt })).status, 409);
+  const saved = (await detail()).followUps.find((item) => item.id === made.id);
+  assert.deepEqual([saved.owner, saved.notes], ['Newer owner', valid.notes]);
 });

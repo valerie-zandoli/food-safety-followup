@@ -52,6 +52,11 @@ export function PreviewProvider({ children }) {
       catch { setNotice(message + ' The latest summary could not be loaded. Use Reload data to retry.'); }
       return { record };
     } catch (error) {
+      // The record changed elsewhere: say so where it stays visible, and load the latest.
+      if (error.status === 409) {
+        setNotice(error.message);
+        await refresh(locationId).catch(() => {});
+      }
       return { errors: Object.keys(error.fields || {}).length ? error.fields : { form: error.message || 'The save could not be completed. Please try again.' } };
     } finally {
       writePending.current = false;
@@ -66,8 +71,8 @@ export function PreviewProvider({ children }) {
     }, 'Follow-up saved.');
   }
 
-  async function completeFollowUp(locationId, actionId, completionNote) {
-    const result = await saveFollowUp({ locationId, status: 'Complete', completionNote }, actionId);
+  async function completeFollowUp(locationId, actionId, completionNote, expectedUpdatedAt) {
+    const result = await saveFollowUp({ locationId, status: 'Complete', completionNote, expectedUpdatedAt }, actionId);
     return result.errors ? { error: result.errors.completionNote || result.errors.form || Object.values(result.errors)[0] } : result;
   }
 
