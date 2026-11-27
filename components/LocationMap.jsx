@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { permitStatusLabel } from '../lib/presentation';
+import { assetPath } from '../lib/assetPath';
 
 export default function LocationMap({ locations, selectedId, selectionRevision, onSelect }) {
   const host = useRef(null);
@@ -42,7 +43,7 @@ export default function LocationMap({ locations, selectedId, selectionRevision, 
         const address = document.createElement('p');
         address.textContent = location.address;
         const link = document.createElement('a');
-        link.href = `/locations/${encodeURIComponent(location.id)}`;
+        link.href = assetPath(`/locations/${encodeURIComponent(location.id)}`);
         link.className = 'primary-button';
         link.textContent = 'Open location';
         popup.append(title, address, link);

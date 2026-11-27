@@ -126,3 +126,15 @@ test('an asset address gets the base path in a snapshot under a GitHub Pages fol
     if (previous === undefined) delete process.env.NEXT_PUBLIC_BASE_PATH; else process.env.NEXT_PUBLIC_BASE_PATH = previous;
   }
 });
+
+// A link built by hand is not given the folder name by Next, so under GitHub Pages it would open a 404.
+test('every address a component builds by hand keeps the GitHub Pages folder name', async () => {
+  const dir = new URL('../components/', import.meta.url);
+  const built = [];
+  for (const name of await fs.readdir(dir)) {
+    const source = await fs.readFile(new URL(name, dir), 'utf8');
+    for (const match of source.matchAll(/\.href\s*=\s*([^;\n]+)/g)) built.push(`${name}: ${match[1]}`);
+  }
+  assert.ok(built.length > 0, 'the map popup link is built by hand');
+  for (const line of built) assert.match(line, /: assetPath\(/, line);
+});
