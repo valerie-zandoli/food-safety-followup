@@ -4,6 +4,8 @@ New York City publishes restaurant inspection citations, but that data cannot co
 
 Built as a course project by [Dennys Antunish](https://github.com/antunishdPursuit) and [Valerie Zandoli](https://github.com/valerie-zandoli).
 
+[Try the live demo](https://valerie-zandoli.github.io/food-safety-followup/) (read-only, so saving is turned off)
+
 [Watch the showcase film on YouTube](https://youtu.be/6t9ewV_8y48)
 
 **Showcase film (1:31)**: a filth-flies violation cited twice in 15 days at one restaurant, followed from the public NYC inspection record to the manager's completed follow-up. Inspection records are from NYC Open Data; follow-up entries are illustrative. [Download the film](docs/media/food-safety-follow-up-showcase.mp4).
