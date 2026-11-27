@@ -81,3 +81,25 @@ test('restore refuses a missing file, invalid JSON, and a file that is not a sto
 test('backupDb returns null when there is no store yet', async () => {
   assert.equal(await backupDb(await tempDir()), null);
 });
+
+test('a good backup can be restored over a damaged store, and the damaged file is kept exactly as it was', async () => {
+  const dir = await tempDir();
+  await updateDb(mark('good'), dir);
+  await updateDb(mark('later'), dir);
+  const [backup] = await listBackups(dir);
+  const damaged = '{"version": 2, "locations": {';
+  await fs.writeFile(path.join(dir, 'db.json'), damaged);
+
+  const result = await restoreDb(path.join(dir, 'backups', backup), dir);
+
+  assert.equal((await readDb(dir)).directory.sourceUrl, 'good');
+  assert.equal(await fs.readFile(result.damagedCopy, 'utf8'), damaged);
+  assert.deepEqual(await listBackups(dir), [backup], 'the damaged file never joins the backups that are listed or pruned');
+});
+
+test('an ordinary save still refuses a damaged store, so nothing overwrites it by accident', async () => {
+  const dir = await tempDir();
+  await fs.writeFile(path.join(dir, 'db.json'), '{ nope');
+  await assert.rejects(updateDb(mark('new'), dir), SyntaxError);
+  assert.equal(await fs.readFile(path.join(dir, 'db.json'), 'utf8'), '{ nope');
+});

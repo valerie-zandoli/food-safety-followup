@@ -68,8 +68,8 @@ const steps = {
       console.log(names.length ? `Backups in ${path.join(dir, 'backups')}, newest first:\n${names.map((name) => `  ${name}`).join('\n')}\nRestore one with: npm run data:restore -- ${path.join(dir, 'backups', '<file>')}` : `No backups yet in ${path.join(dir, 'backups')}.`);
       return;
     }
-    await restoreDb(path.resolve(file), dir);
-    console.log(`Restored the store from ${file}. The store it replaced was backed up first.`);
+    const { damagedCopy } = await restoreDb(path.resolve(file), dir);
+    console.log(`Restored the store from ${file}. ${damagedCopy ? `The store it replaced was damaged; an exact copy is at ${damagedCopy}.` : 'The store it replaced was backed up first.'}`);
   },
 };
 
