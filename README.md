@@ -1,6 +1,6 @@
 # Food Safety Follow-Up
 
-New York City publishes restaurant inspection citations, but that data cannot confirm that anyone fixed the problem. This prototype tests whether putting each citation beside its follow-up helps a food safety manager catch repeat violations and unfinished fixes.
+New York City publishes restaurant inspection citations, but that data cannot confirm that anyone fixed the problem. This prototype is built to test whether putting each citation beside its follow-up helps a food safety manager catch repeat violations and unfinished fixes.
 
 Built as a course project by [Dennys Antunish](https://github.com/antunishdPursuit) and [Valerie Zandoli](https://github.com/valerie-zandoli).
 
